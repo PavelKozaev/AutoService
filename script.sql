@@ -1,12 +1,17 @@
+--- Создание базы данных AutoService ---
 CREATE DATABASE AutoService;
 
 USE AutoService;
 
+
+
+--- Создание таблицы CarBrands ---
 CREATE TABLE CarBrands (
 	BrandId INT IDENTITY(1, 1) PRIMARY KEY,
 	BrandName NVARCHAR(50) NOT NULL UNIQUE
 );
 
+--- Создание таблицы CarModels ---
 CREATE TABLE CarModels (
 	ModelId INT IDENTITY(1, 1) PRIMARY KEY,
 	BrandId INT NOT NULL,
@@ -16,6 +21,7 @@ CREATE TABLE CarModels (
 	CONSTRAINT UQ_BrandModel UNIQUE (BrandId, ModelName)
 );
 
+--- Создание таблицы Clients ---
 CREATE TABLE Clients (
 	ClientId INT IDENTITY(1, 1) PRIMARY KEY,
 	FullName NVARCHAR(100) NOT NULL,
@@ -24,6 +30,7 @@ CREATE TABLE Clients (
     PassportData NVARCHAR(100) NOT NULL UNIQUE
 );
 
+--- Создание таблицы Masters ---
 CREATE TABLE Masters (
     MasterID INT IDENTITY(1,1) PRIMARY KEY,
     FullName NVARCHAR(100) NOT NULL,
@@ -31,6 +38,7 @@ CREATE TABLE Masters (
     Experience INT NOT NULL CHECK (Experience >= 0)
 );
 
+--- Создание таблицы Cars ---
 CREATE TABLE Cars (
     CarID INT IDENTITY(1,1) PRIMARY KEY,
     ModelID INT NOT NULL,
@@ -41,6 +49,7 @@ CREATE TABLE Cars (
     CONSTRAINT FK_Cars_Clients FOREIGN KEY (ClientID) REFERENCES Clients(ClientID)
 );
 
+--- Создание таблицы Repairs ---
 CREATE TABLE Repairs (
     RepairID INT IDENTITY(1,1) PRIMARY KEY,
     CarID INT NOT NULL,
@@ -56,6 +65,7 @@ CREATE TABLE Repairs (
 
 
 
+--- Заполнение таблиц данными ---
 INSERT INTO CarBrands (BrandName) VALUES 
 ('Toyota'), ('Honda'), ('BMW'), ('Mercedes'), ('Audi'),
 ('Ford'), ('Volkswagen'), ('Hyundai'), ('Kia'), ('Nissan'),
@@ -158,24 +168,24 @@ INSERT INTO Cars (ModelID, LicensePlate, ClientID, Mileage) VALUES
 (13, 'H333HH777', 10, 105000);
 
 INSERT INTO Repairs (CarID, MasterID, FaultDescription, StartDate, EndDate, Cost) VALUES
-(1, 1, 'Change oil and filters', '2023-05-01', '2023-05-02', 5000),
-(2, 2, 'KPP', '2023-05-03', NULL, 15000),
-(3, 3, 'Replacing brake pads', '2023-05-05', '2023-05-06', 8000),
-(4, 4, 'Engine diagnostics', '2023-05-10', NULL, 3000),
-(5, 5, 'Timing Belt Replacement', '2023-05-12', '2023-05-15', 12000),
-(6, 1, 'Chassis repair', '2023-05-15', NULL, 10000),
-(7, 2, 'Replacing shock absorbers', '2023-05-18', NULL, 9000),
-(8, 3, 'Electronics repair', '2023-05-20', NULL, 7000),
+(1, 1, 'Change oil and filters', '2025-05-01', '2025-05-02', 5000),
+(2, 2, 'KPP', '2025-05-03', NULL, 15000),
+(3, 3, 'Replacing brake pads', '2025-05-05', NULL, 8000),
+(4, 4, 'Engine diagnostics', '2025-05-10', NULL, 3000),
+(5, 5, 'Timing Belt Replacement', '2025-05-12', '2025-05-15', 12000),
+(6, 1, 'Chassis repair', '2025-05-15', NULL, 10000),
+(7, 2, 'Replacing shock absorbers', '2025-05-18', NULL, 9000),
+(8, 3, 'Electronics repair', '2025-05-20', NULL, 7000),
 (1, 4, 'Replacing spark plugs', '2023-04-01', '2023-04-02', 4000),
 (2, 5, 'Gearbox fluid replacement', '2023-04-05', '2023-04-06', 6000),
-(9, 6, 'Wheel alignment', '2025-05-22', '2025-05-23', 2500),
+(9, 6, 'Wheel alignment', '2025-05-22', NULL, 2500),
 (10, 7, 'Replacing the fuel pump', '2025-05-24', NULL, 7500),
 (11, 8, 'Suspension repair', '2025-05-25', '2025-05-27', 11000),
 (12, 9, 'Air conditioning repair', '2025-05-26', NULL, 8500),
 (13, 10, 'Replacing the generator', '2025-05-28', '2025-05-29', 9500),
 (14, 11, 'Brake system diagnostics', '2025-05-30', NULL, 3000),
 (15, 12, 'Replacing the starter', '2024-06-01', '2024-06-02', 6500),
-(16, 13, 'Replacing the radiator', '2024-06-03', NULL, 8000),
+(16, 13, 'Replacing the radiator', '2025-06-03', NULL, 8000),
 (17, 14, 'Replacing the battery', '2024-06-05', '2024-06-05', 5000),
 (18, 15, 'Replacing the exhaust system', '2025-06-06', NULL, 12000),
 (19, 1, 'Replacing the ignition coil', '2024-04-10', '2024-04-11', 4500),
@@ -187,9 +197,9 @@ INSERT INTO Repairs (CarID, MasterID, FaultDescription, StartDate, EndDate, Cost
 (25, 7, 'Replacing the thermostat', '2023-04-28', '2023-04-29', 6000),
 (26, 8, 'Replacing the oil pump', '2023-05-02', '2023-05-03', 9500),
 (27, 9, 'Replacing the power steering pump', '2025-05-05', '2025-05-06', 7500),
-(28, 10, 'Replacing the turbocharger', '2025-05-08', '2025-05-10', 18000),
-(29, 11, 'Replacing the injectors', '2025-05-12', '2025-05-13', 11000),
-(30, 12, 'Replacing the glow plugs', '2025-05-15', '2025-05-16', 5000),
+(28, 10, 'Replacing the turbocharger', '2025-05-08', NULL, 18000),
+(29, 11, 'Replacing the injectors', '2025-05-12', NULL, 11000),
+(30, 12, 'Replacing the glow plugs', '2025-05-15', NULL, 5000),
 (1, 13, 'Replacing the oxygen sensor', '2023-03-01', '2023-03-02', 4500),
 (2, 14, 'Replacing the mass air flow sensor', '2023-03-05', '2023-03-06', 4000),
 (3, 15, 'Replacing the throttle body', '2023-03-10', '2023-03-11', 6500),
@@ -197,11 +207,37 @@ INSERT INTO Repairs (CarID, MasterID, FaultDescription, StartDate, EndDate, Cost
 (5, 2, 'Replacing the wheel bearing', '2023-03-20', '2023-03-21', 7500),
 (6, 3, 'Replacing the CV joint', '2024-03-25', '2024-03-26', 8500),
 (7, 4, 'Replacing the drive shaft', '2024-03-30', '2024-03-31', 11000),
-(8, 5, 'Replacing the differential', '2024-04-05', '2024-04-07', 15000);
+(8, 5, 'Replacing the differential', '2025-04-05', NULL, 15000);
 
 
 
+--- Создание представление MayUnfinishedRepairs ---
+CREATE VIEW MayUnfinishedRepairs AS
+SELECT 
+    m.FullName AS MasterName,
+    cb.BrandName AS CarBrand,
+    cm.ModelName AS CarModel,
+    c.LicensePlate,
+    cl.FullName AS ClientName,
+    r.FaultDescription,
+    r.StartDate,
+    r.Cost,
+    SUM(r.Cost) OVER (PARTITION BY m.MasterID) AS MasterTotal
+FROM 
+    AutoService.dbo.Repairs r
+    INNER JOIN Masters m ON r.MasterID = m.MasterID
+    INNER JOIN Cars c ON r.CarID = c.CarID
+    INNER JOIN CarModels cm ON c.ModelID = cm.ModelID
+    INNER JOIN CarBrands cb ON cm.BrandId = cb.BrandId
+    INNER JOIN Clients cl ON c.ClientID = cl.ClientID
+WHERE 
+    YEAR(r.StartDate) = 2025 AND 
+    MONTH(r.StartDate) = 5 AND 
+    r.EndDate IS NULL;
 
+
+
+--- Создание функции GetMasterWorkloadPercentage ---
 CREATE FUNCTION GetMasterWorkloadPercentage
 (
     @MasterID INT,
@@ -238,8 +274,8 @@ END;
 
 
 
-
-CREATE VIEW MayUnfinishedRepairsWithTotals AS
+--- Создание функции MayUnfinishedRepairs ---
+ALTER VIEW MayUnfinishedRepairs AS
 SELECT 
     m.FullName AS MasterName,
     cb.BrandName AS CarBrand,
@@ -250,32 +286,6 @@ SELECT
     r.StartDate,
     r.Cost,
     SUM(r.Cost) OVER (PARTITION BY m.MasterID) AS MasterTotal,
-    SUM(r.Cost) OVER () AS GrandTotal
-FROM 
-    AutoService.dbo.Repairs r
-    INNER JOIN Masters m ON r.MasterID = m.MasterID
-    INNER JOIN Cars c ON r.CarID = c.CarID
-    INNER JOIN CarModels cm ON c.ModelID = cm.ModelID
-    INNER JOIN CarBrands cb ON cm.BrandId = cb.BrandId
-    INNER JOIN Clients cl ON c.ClientID = cl.ClientID
-WHERE 
-    YEAR(r.StartDate) = 2025 AND 
-    MONTH(r.StartDate) = 5 AND 
-    r.EndDate IS NULL;
-
-
-ALTER VIEW MayUnfinishedRepairsWithTotals AS
-SELECT 
-    m.FullName AS MasterName,
-    cb.BrandName AS CarBrand,
-    cm.ModelName AS CarModel,
-    c.LicensePlate,
-    cl.FullName AS ClientName,
-    r.FaultDescription,
-    r.StartDate,
-    r.Cost,
-    SUM(r.Cost) OVER (PARTITION BY m.MasterID) AS MasterTotal,
-    SUM(r.Cost) OVER () AS GrandTotal,
     dbo.GetMasterWorkloadPercentage(m.MasterID, YEAR(r.StartDate), MONTH(r.StartDate)) AS WorkloadPercentage
 FROM 
     AutoService.dbo.Repairs r
@@ -290,7 +300,9 @@ WHERE
     r.EndDate IS NULL;
 
 
-CREATE VIEW UnfinishedRepairsWithTotals AS
+
+--- Создание представления UnfinishedRepairs ---
+CREATE VIEW UnfinishedRepairs AS
 SELECT 
     m.FullName AS MasterName,
     cb.BrandName AS CarBrand,
@@ -300,8 +312,7 @@ SELECT
     r.FaultDescription,
     r.StartDate,
     r.Cost,
-    SUM(r.Cost) OVER (PARTITION BY m.MasterID) AS MasterTotal,
-    SUM(r.Cost) OVER () AS GrandTotal
+    SUM(r.Cost) OVER (PARTITION BY m.MasterID) AS MasterTotal
 FROM 
     AutoService.dbo.Repairs r
     INNER JOIN Masters m ON r.MasterID = m.MasterID

@@ -41,8 +41,7 @@ namespace AutoServiceAPI.Services
                     ClientName = r.ClientName,
                     FaultDescription = r.FaultDescription,
                     Cost = r.Cost,
-                    MasterTotal = r.MasterTotal,
-                    GrandTotal = r.GrandTotal
+                    MasterTotal = r.MasterTotal
                 })
                 .ToListAsync();
 
@@ -78,7 +77,7 @@ namespace AutoServiceAPI.Services
                 var headers = new[]
                 {
                 "Мастер", "Марка", "Модель", "Госномер",
-                "Клиент", "Неисправность", "Дата начала", "Стоимость", "Процент загрузки"
+                "Клиент", "Неисправность", "Дата начала", "Стоимость работы", "Общая стоимость работ мастера", "Процент загруженности мастера"
             };
 
                 for (int i = 0; i < headers.Length; i++)
@@ -97,15 +96,20 @@ namespace AutoServiceAPI.Services
                     worksheet.Cell(row, 6).Value = item.FaultDescription;
                     worksheet.Cell(row, 7).Value = item.StartDate;
                     worksheet.Cell(row, 8).Value = item.Cost;
-                    worksheet.Cell(row, 9).Value = item.WorkloadPercentage.HasValue
+                    worksheet.Cell(row, 9).Value = item.MasterTotal;
+                    worksheet.Cell(row, 10).Value = item.WorkloadPercentage.HasValue
                         ? item.WorkloadPercentage.Value / 100
                         : 0;
                     row++;
                 }
 
-                worksheet.Range("A1:I1").Style.Font.Bold = true;
+                worksheet.Range("A1:J1").Style.Font.Bold = true;
+
                 worksheet.Range("H2:H" + row).Style.NumberFormat.Format = "#,##0.00";
-                worksheet.Range("I2:I" + row).Style.NumberFormat.Format = "0.00%";
+                worksheet.Range("I2:I" + row).Style.NumberFormat.Format = "#,##0.00";
+
+                worksheet.Range("J2:J" + row).Style.NumberFormat.Format = "0.00%";
+
                 worksheet.Columns().AdjustToContents();
 
                 using (var stream = new MemoryStream())

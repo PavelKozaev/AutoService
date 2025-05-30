@@ -15,7 +15,7 @@ namespace AutoServiceAPI.Models
             modelBuilder.Entity<UnfinishedRepairView>(entity =>
             {
                 entity.HasNoKey();
-                entity.ToView("UnfinishedRepairsWithTotals");
+                entity.ToView("UnfinishedRepairs");
             });
         }
     }
@@ -32,6 +32,5 @@ namespace AutoServiceAPI.Models
         public DateTime StartDate { get; set; }
         public decimal Cost { get; set; }
         public decimal MasterTotal { get; set; }
-        public decimal GrandTotal { get; set; }
     }
 }
